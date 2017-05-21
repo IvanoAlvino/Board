@@ -84,4 +84,27 @@ public class Canvas {
   public void setFullPoint(char fullPoint) {
     this.fullPoint = fullPoint;
   }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public char getEmptyPoint() {
+    return emptyPoint;
+  }
+
+  public char getPointAt(int x, int y) {
+    if (!outOfBorder(x, y)) {
+      return this.canvas[x][y];
+    }
+    return '/';
+  }
+
+  public char getFullpoint() {
+    return this.fullPoint;
+  }
 }
