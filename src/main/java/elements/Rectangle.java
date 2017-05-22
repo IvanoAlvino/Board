@@ -12,18 +12,33 @@ public class Rectangle implements Drawable {
 
   private int y2;
 
+  private char fullPoint;
+
   public Rectangle(int x1, int y1, int x2, int y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this.fullPoint = 'x';
   }
 
   public void draw(Canvas canvas) {
-    for (int x = this.x1; x < this.x2; x++) {
-      for (int y = this.y1; y < this.y2; y++) {
-        canvas.drawPoint(x, y);
+    canvas.setFullPoint(this.fullPoint);
+
+    int minHeight = this.y1 < this.y2 ? this.y1 : this.y2;
+    int maxHeight = this.y1 > this.y2 ? this.y1 : this.y2;
+    int minWidth = this.x1 < this.x2 ? this.x1 : this.x2;
+    int maxWidth = this.x1 > this.x2 ? this.x1 : this.x2;
+
+    for (int r = minHeight; r <= maxHeight; r++) {
+      for (int c = minWidth; c <= maxWidth; c++) {
+        canvas.drawPoint(r, c);
       }
     }
+
+  }
+
+  public void setFullPoint(char fullPoint) {
+    this.fullPoint = fullPoint;
   }
 }
