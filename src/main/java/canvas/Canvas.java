@@ -17,24 +17,25 @@ public class Canvas {
   public Canvas(int width, int height) {
     this.width = width;
     this.height = height;
-    this.canvas = new char[this.width][this.height];
-    this.consideredPoints = new boolean[this.width][this.height];
+    this.canvas = new char[this.height][this.width];
+    this.consideredPoints = new boolean[this.height][this.width];
     fullPoint = 'x';
-    emptyPoint = '.';
+    emptyPoint = ' ';
     clearCanvas();
+    printToStdout();
   }
 
   private void clearCanvas() {
-    for (int x = 0; x < this.width; x++) {
-      for (int y = 0; y < this.height; y++) {
-        this.canvas[x][y] = emptyPoint;
+    for (int r = 0; r < this.height; r++) {
+      for (int c = 0; c < this.width; c++) {
+        this.canvas[r][c] = emptyPoint;
       }
     }
   }
 
-  public void drawPoint(int x, int y) {
-    if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
-      this.canvas[x][y] = this.fullPoint;
+  public void drawPoint(int r, int c) {
+    if (r >= 0 && r < this.height && c >= 0 && c < this.width) {
+      this.canvas[r][c] = this.fullPoint;
     }
   }
 
@@ -44,40 +45,54 @@ public class Canvas {
   }
 
   private void initConsideredPoints() {
-    for (int x = 0; x < this.width; x++) {
-      for (int y = 0; y < this.height; y++) {
-        this.consideredPoints[x][y] = false;
+    for (int r = 0; r < this.height; r++) {
+      for (int c = 0; c < this.width; c++) {
+        this.consideredPoints[r][c] = false;
       }
     }
   }
 
-  private void recursiveFill(int x, int y, Object color) {
-    if (outOfBorder(x, y) || this.canvas[x][y] == this.fullPoint || alreadyConsidered(x, y)) {
+  private void recursiveFill(int r, int c, Object color) {
+    if (outOfBorder(r, c) || this.canvas[r][c] == this.fullPoint || alreadyConsidered(r, c)) {
       return;
     }
 
-    this.canvas[x][y] = (Character) color;
-    this.consideredPoints[x][y] = true;
-    recursiveFill(x - 1, y, color); // up
-    recursiveFill(x + 1, y, color); // right
-    recursiveFill(x, y - 1, color); // down
-    recursiveFill(x, y + 1, color); // left
+    this.canvas[r][c] = (Character) color;
+    this.consideredPoints[r][c] = true;
+    recursiveFill(r - 1, c, color); // up
+    recursiveFill(r + 1, c, color); // right
+    recursiveFill(r, c - 1, color); // down
+    recursiveFill(r, c + 1, color); // left
   }
 
-  private boolean outOfBorder(int x, int y) {
-    return x < 0 || x >= this.width || y < 0 || y >= this.height;
+  private boolean outOfBorder(int r, int c) {
+    return r < 0 || r >= this.height || c < 0 || c >= this.width;
   }
 
-  private boolean alreadyConsidered(int x, int y) {
-    return this.consideredPoints[x][y];
+  private boolean alreadyConsidered(int r, int c) {
+    return this.consideredPoints[r][c];
   }
 
   public void printToStdout() {
-    for (int x = 0; x < this.width; x++) {
-      for (int y = 0; y < this.height; y++) {
-        System.out.print(this.canvas[x][y]);
+    printLineBorder();
+
+    System.out.println();
+    for (int r = 0; r < this.height; r++) {
+      System.out.print("|");
+      for (int c = 0; c < this.width; c++) {
+        System.out.print(this.canvas[r][c]);
       }
+      System.out.print("|");
       System.out.println();
+    }
+
+    printLineBorder();
+    System.out.println();
+  }
+
+  private void printLineBorder() {
+    for (int c = 0; c < this.width + 2; c++) {
+      System.out.print("-");
     }
   }
 
@@ -97,9 +112,9 @@ public class Canvas {
     return emptyPoint;
   }
 
-  public char getPointAt(int x, int y) {
-    if (!outOfBorder(x, y)) {
-      return this.canvas[x][y];
+  public char getPointAt(int r, int c) {
+    if (!outOfBorder(r, c)) {
+      return this.canvas[r][c];
     }
     return '/';
   }
