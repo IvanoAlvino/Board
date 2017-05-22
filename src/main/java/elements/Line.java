@@ -21,9 +21,14 @@ public class Line implements Drawable {
 
   public void draw(Canvas canvas) {
     canvas.setFullPoint('X');
-    for (int x = this.x1; x <= this.x2; x++) {
-      for (int y = this.y1; y <= this.y2; y++) {
-        canvas.drawPoint(x, y);
+    int minHeight = this.y1 < this.y2 ? this.y1 : this.y2;
+    int maxHeight = this.y1 > this.y2 ? this.y1 : this.y2;
+    int minWidth = this.x1 < this.x2 ? this.x1 : this.x2;
+    int maxWidth = this.x1 > this.x2 ? this.x1 : this.x2;
+
+    for (int r = minHeight; r <= maxHeight; r++) {
+      for (int c = minWidth; c <= maxWidth; c++) {
+        canvas.drawPoint(r, c);
       }
     }
   }
