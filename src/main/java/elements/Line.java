@@ -12,15 +12,19 @@ public class Line implements Drawable {
 
   private int y2;
 
+  private char fullPoint;
+
   public Line(int x1, int y1, int x2, int y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this.fullPoint = 'x';
   }
 
   public void draw(Canvas canvas) {
-    canvas.setFullPoint('X');
+    canvas.setFullPoint(this.fullPoint);
+
     int minHeight = this.y1 < this.y2 ? this.y1 : this.y2;
     int maxHeight = this.y1 > this.y2 ? this.y1 : this.y2;
     int minWidth = this.x1 < this.x2 ? this.x1 : this.x2;
@@ -31,5 +35,9 @@ public class Line implements Drawable {
         canvas.drawPoint(r, c);
       }
     }
+  }
+
+  public void setFullPoint(char fullPoint) {
+    this.fullPoint = fullPoint;
   }
 }
