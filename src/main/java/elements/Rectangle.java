@@ -25,16 +25,10 @@ public class Rectangle implements Drawable {
   public void draw(Canvas canvas) {
     canvas.setFullPoint(this.fullPoint);
 
-    int minHeight = this.y1 < this.y2 ? this.y1 : this.y2;
-    int maxHeight = this.y1 > this.y2 ? this.y1 : this.y2;
-    int minWidth = this.x1 < this.x2 ? this.x1 : this.x2;
-    int maxWidth = this.x1 > this.x2 ? this.x1 : this.x2;
-
-    for (int r = minHeight; r <= maxHeight; r++) {
-      for (int c = minWidth; c <= maxWidth; c++) {
-        canvas.drawPoint(r, c);
-      }
-    }
+    new Line(this.x1, this.y1, this.x2, this.y1).draw(canvas); // top horizontal
+    new Line(this.x2, this.y1, this.x2, this.y2).draw(canvas); // right vertical
+    new Line(this.x1, this.y2, this.x2, this.y2).draw(canvas); // bottom horizontal
+    new Line(this.x1, this.y1, this.x1, this.y2).draw(canvas); // left vertical
 
   }
 
