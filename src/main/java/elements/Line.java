@@ -30,11 +30,17 @@ public class Line implements Drawable {
     int minWidth = this.x1 < this.x2 ? this.x1 : this.x2;
     int maxWidth = this.x1 > this.x2 ? this.x1 : this.x2;
 
-    for (int r = minHeight; r <= maxHeight; r++) {
+    if (minHeight == maxHeight) {
       for (int c = minWidth; c <= maxWidth; c++) {
-        canvas.drawPoint(r, c);
+        canvas.drawPoint(minHeight - 1, c - 1);
       }
     }
+    else if (minWidth == maxWidth) {
+      for (int r = minHeight; r <= maxHeight; r++) {
+        canvas.drawPoint(r - 1, minWidth - 1);
+      }
+    }
+
   }
 
   public void setFullPoint(char fullPoint) {
