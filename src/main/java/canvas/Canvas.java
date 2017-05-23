@@ -4,15 +4,24 @@ public class Canvas {
 
   private char[][] canvas;
 
-  private boolean[][] consideredPoints;
-
   private int width;
 
   private int height;
 
+  /**
+   * The char representing a full point in the canvas.
+   */
   private char fullPoint;
 
+  /**
+   * The char representing an empty point in the canvas.
+   */
   private char emptyPoint;
+
+  /**
+   * Support data used to keep track of point already considered when performing {@link Canvas#fill(int, int, Object)}
+   */
+  private boolean[][] consideredPoints;
 
   public Canvas(int width, int height) {
     this.width = width;
@@ -25,6 +34,9 @@ public class Canvas {
     printToStdout();
   }
 
+  /**
+   * Initialize every point in the canvas using {@link Canvas#emptyPoint}.
+   */
   private void clearCanvas() {
     for (int r = 0; r < this.height; r++) {
       for (int c = 0; c < this.width; c++) {
@@ -33,17 +45,36 @@ public class Canvas {
     }
   }
 
+  /**
+   * Insert {@link Canvas#fullPoint} in point r, c
+   *
+   * @param r width coordinate
+   * @param c height coordinate
+   */
   public void drawPoint(int r, int c) {
     if (r >= 0 && r < this.height && c >= 0 && c < this.width) {
       this.canvas[r][c] = this.fullPoint;
     }
   }
 
-  public void fill(int x, int y, Object color) {
+  /**
+   * Perform a bucket paint-like fill in the canvas, starting from r,c coordinates and filling with @param color all
+   * contiguous empty points.
+   * This will stop once every empty canvas points in the area starting from r,c are filled with the chosen color.
+   *
+   * @param r     width coordinate
+   * @param c     height coordinate
+   * @param color the color to use
+   */
+  public void fill(int r, int c, Object color) {
     initConsideredPoints();
-    recursiveFill(x, y, color);
+    recursiveFill(r, c, color);
   }
 
+  /**
+   * Initialize a boolean matrix to use as support to track already considered points when performing
+   * {@link Canvas#fill(int, int, Object)}.
+   */
   private void initConsideredPoints() {
     for (int r = 0; r < this.height; r++) {
       for (int c = 0; c < this.width; c++) {
@@ -52,12 +83,19 @@ public class Canvas {
     }
   }
 
+  /**
+   * Perform a recursive algorithm to fill avery not already considered empty points starting from r,c with @param color
+   *
+   * @param r width coordinate
+   * @param c height coordinate
+   * @param color the color to use
+   */
   private void recursiveFill(int r, int c, Object color) {
     if (outOfBorder(r, c) || this.canvas[r][c] == this.fullPoint || alreadyConsidered(r, c)) {
       return;
     }
 
-    this.canvas[r][c] = (Character) color;
+    this.canvas[r][c] = (Character)color;
     this.consideredPoints[r][c] = true;
     recursiveFill(r - 1, c, color); // up
     recursiveFill(r + 1, c, color); // right
@@ -65,6 +103,12 @@ public class Canvas {
     recursiveFill(r, c + 1, color); // left
   }
 
+  /**
+   * Check if provided r, c are out of border
+   * @param r width coordinate
+   * @param c height coordinate
+   * @return true if r,c is out of canvas
+   */
   private boolean outOfBorder(int r, int c) {
     return r < 0 || r >= this.height || c < 0 || c >= this.width;
   }
@@ -73,6 +117,10 @@ public class Canvas {
     return this.consideredPoints[r][c];
   }
 
+  /**
+   * Print the canvas to stdout.
+   * Canvas is printed inside a border.
+   */
   public void printToStdout() {
     printLineBorder();
 
@@ -112,6 +160,12 @@ public class Canvas {
     return emptyPoint;
   }
 
+  /**
+   * Get point in canvas at coordinates r,c
+   * @param r width coordinate
+   * @param c height coordinate
+   * @return the point
+   */
   public char getPointAt(int r, int c) {
     if (!outOfBorder(r, c)) {
       return this.canvas[r][c];
