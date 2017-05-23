@@ -65,7 +65,7 @@ public class Main {
     int x = scanner.nextInt();
     int y = scanner.nextInt();
     char color = readOneChar();
-    canvas.fill(x, y, color);
+    canvas.fill(x - 1, y - 1, color);
     canvas.printToStdout();
   }
 
