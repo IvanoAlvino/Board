@@ -1,6 +1,7 @@
 import canvas.Canvas;
 import elements.Line;
 import elements.Rectangle;
+import exception.PointsNotInOrderException;
 
 import java.util.Scanner;
 
@@ -74,8 +75,17 @@ public class Main {
     int y1 = scanner.nextInt();
     int x2 = scanner.nextInt();
     int y2 = scanner.nextInt();
-    new Rectangle(x1, y1, x2, y2).draw(canvas);
-    canvas.printToStdout();
+
+    Rectangle rectangle;
+    try {
+      rectangle = new Rectangle(x1, y1, x2, y2);
+      rectangle.draw(canvas);
+      canvas.printToStdout();
+    }
+    catch (PointsNotInOrderException e) {
+      System.out.println(e.getMessage());
+      System.out.println("Rectangle has not been printed.");
+    }
   }
 
   private static void createCanvas() {
