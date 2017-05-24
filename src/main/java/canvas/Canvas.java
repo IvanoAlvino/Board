@@ -150,26 +150,6 @@ public class Canvas {
     }
   }
 
-  public void setFullPoint(char fullPoint) {
-    this.fullPoint = fullPoint;
-  }
-
-  public void setEmptyPoint(char emptyPoint) {
-    this.emptyPoint = emptyPoint;
-  }
-
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
-  }
-
-  public char getEmptyPoint() {
-    return emptyPoint;
-  }
-
   /**
    * Get point in canvas at coordinates r,c
    * @param r width coordinate
@@ -185,5 +165,25 @@ public class Canvas {
 
   public char getFullpoint() {
     return this.fullPoint;
+  }
+
+  public void setFullPoint(char fullPoint) {
+    this.fullPoint = fullPoint;
+  }
+
+  public char getEmptyPoint() {
+    return emptyPoint;
+  }
+
+  public void setEmptyPoint(char emptyPoint) {
+    this.emptyPoint = emptyPoint;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 }
