@@ -154,6 +154,10 @@ public class Canvas {
     this.fullPoint = fullPoint;
   }
 
+  public void setEmptyPoint(char emptyPoint) {
+    this.emptyPoint = emptyPoint;
+  }
+
   public int getWidth() {
     return width;
   }
