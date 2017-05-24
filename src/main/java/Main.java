@@ -102,7 +102,7 @@ public class Main {
   }
 
   private static char readOneChar() {
-    return scanner.next(".").charAt(0);
+    return scanner.next().charAt(0);
   }
 
   private static void drawLine() {
