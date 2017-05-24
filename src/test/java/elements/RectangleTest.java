@@ -46,4 +46,14 @@ public class RectangleTest {
     Assert.assertEquals("Point 1,5 should be filled by line", canvas.getPointAt(0,4), rectanglePoint);
   }
 
+  @Test(expected = PointsNotInOrderException.class)
+  public void pointsNotInOrderrectangleMustThrowException() throws PointsNotInOrderException {
+    new Rectangle(5,5,1,1);
+  }
+
+  @Test(expected = PointsNotInOrderException.class)
+  public void samePointsMustThrowException() throws PointsNotInOrderException {
+    new Rectangle(5,5,5,5);
+  }
+
 }
