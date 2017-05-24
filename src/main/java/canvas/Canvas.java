@@ -97,16 +97,16 @@ public class Canvas {
    * @param color the color to use
    */
   private void recursiveFill(int r, int c, Object color) {
-    if (outOfBorder(r, c) || this.canvas[r][c] == this.fullPoint || alreadyConsidered(r, c)) {
+    if (outOfBorder(c, r) || this.canvas[c][r] == this.fullPoint || alreadyConsidered(c, r)) {
       return;
     }
 
-    this.canvas[r][c] = (Character)color;
-    this.consideredPoints[r][c] = true;
-    recursiveFill(r - 1, c, color); // up
+    this.canvas[c][r] = (Character)color;
+    this.consideredPoints[c][r] = true;
+    recursiveFill(r,c - 1, color); // up
+    recursiveFill(r,c + 1, color); // down
+    recursiveFill(r - 1, c, color); // left
     recursiveFill(r + 1, c, color); // right
-    recursiveFill(r, c - 1, color); // down
-    recursiveFill(r, c + 1, color); // left
   }
 
   /**
