@@ -4,6 +4,7 @@ import elements.Rectangle;
 import exception.IllegalWidthORHeightException;
 import exception.PointsNotInOrderException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -37,8 +38,7 @@ public class Main {
     int height = scanner.nextInt();
     try {
       canvas = new Canvas(width, height);
-    }
-    catch (IllegalWidthORHeightException e) {
+    } catch (IllegalWidthORHeightException e) {
       System.out.println(e.getMessage());
       System.out.println("Canvas has not been created.");
     }
@@ -48,32 +48,38 @@ public class Main {
    * Read the operators from command line and call selected procedures.
    */
   private static void manageInput() {
-    while (true) {
-      System.out.print("Command: ");
 
-      switch (readOneChar()) {
-        case 'C':
-          createCanvas();
-          break;
-        case 'L':
-          if (canvasHasBeenCreated()) {
-            drawLine();
-          }
-          break;
-        case 'R':
-          if (canvasHasBeenCreated()) {
-            drawRectangle();
-          }
-          break;
-        case 'B':
-          if (canvasHasBeenCreated()) {
-            bucketFill();
-          }
-          break;
-        case 'Q':
-          return;
+    while (true) {
+
+      try {
+        switch (readOneChar()) {
+          case 'C':
+            createCanvas();
+            break;
+          case 'L':
+            if (canvasHasBeenCreated()) {
+              drawLine();
+            }
+            break;
+          case 'R':
+            if (canvasHasBeenCreated()) {
+              drawRectangle();
+            }
+            break;
+          case 'B':
+            if (canvasHasBeenCreated()) {
+              bucketFill();
+            }
+            break;
+          case 'Q':
+            return;
+        }
+      } catch (InputMismatchException e) {
+        System.out.println("Incorrect input, try again.");
       }
+
     }
+
   }
 
   /**
@@ -102,8 +108,7 @@ public class Main {
       rectangle = new Rectangle(x1, y1, x2, y2);
       rectangle.draw(canvas);
       canvas.printToStdout();
-    }
-    catch (PointsNotInOrderException e) {
+    } catch (PointsNotInOrderException e) {
       System.out.println(e.getMessage());
       System.out.println("Rectangle has not been printed.");
     }
@@ -120,14 +125,14 @@ public class Main {
     if (x > 0 && y > 0 && x <= canvas.getWidth() && y <= canvas.getHeight()) {
       canvas.fill(x - 1, y - 1, color);
       canvas.printToStdout();
-    }
-    else {
+    } else {
       System.out.println("Provided x and y are exceeding canvas size.");
     }
   }
 
   /**
    * Check if the canvas has already been created.
+   *
    * @return true if canvas exists, false otherwise
    */
   private static boolean canvasHasBeenCreated() {
@@ -141,6 +146,7 @@ public class Main {
   /**
    * Read one single char from the stdin.
    * If more than one char is inserted, just return the first one.
+   *
    * @return The first char from the stdin.
    */
   private static char readOneChar() {
