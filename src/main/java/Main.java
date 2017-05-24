@@ -19,7 +19,7 @@ public class Main {
   private static void printMenu() {
     System.out.println("Canvas: C width height");
     System.out.println("Line: L x1 y1 x2 y2");
-    System.out.println("Rectangle: L x1 y1 x2 y2");
+    System.out.println("Rectangle: R x1 y1 x2 y2");
     System.out.println("Bucket: B x y charColor");
     System.out.println("Exit: Q");
     System.out.println();
