@@ -1,13 +1,15 @@
 package elements;
 
 import canvas.Canvas;
+import exception.IllegalWidthORHeightException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class LineTest {
 
   @Test
-  public void lineIsCorrectlyDrawed() {
+  public void lineIsCorrectlyDrawed() throws IllegalWidthORHeightException {
     Canvas canvas = new Canvas(10,10);
     Line line = new Line(1, 1, 1, 5);
     line.setFullPoint('x');

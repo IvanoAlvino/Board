@@ -1,6 +1,7 @@
 import canvas.Canvas;
 import elements.Line;
 import elements.Rectangle;
+import exception.IllegalWidthORHeightException;
 import exception.PointsNotInOrderException;
 
 import java.util.Scanner;
@@ -91,7 +92,13 @@ public class Main {
   private static void createCanvas() {
     int width = scanner.nextInt();
     int height = scanner.nextInt();
-    canvas = new Canvas(width, height);
+    try {
+      canvas = new Canvas(width, height);
+    }
+    catch (IllegalWidthORHeightException e) {
+      System.out.println(e.getMessage());
+      System.out.println("Canvas has not been created.");
+    }
   }
 
   private static char readOneChar() {

@@ -1,5 +1,7 @@
 package canvas;
 
+import exception.IllegalWidthORHeightException;
+
 public class Canvas {
 
   private char[][] canvas;
@@ -23,7 +25,11 @@ public class Canvas {
    */
   private boolean[][] consideredPoints;
 
-  public Canvas(int width, int height) {
+  public Canvas(int width, int height) throws IllegalWidthORHeightException {
+    if (width <= 0 || height <= 0) {
+      throw new IllegalWidthORHeightException("Canvas can not be created with zero or negative width or height.");
+    }
+
     this.width = width;
     this.height = height;
     this.canvas = new char[this.height][this.width];
