@@ -67,8 +67,13 @@ public class Main {
     int x = scanner.nextInt();
     int y = scanner.nextInt();
     char color = readOneChar();
-    canvas.fill(x - 1, y - 1, color);
-    canvas.printToStdout();
+    if (x > 0 && y > 0 && x <= canvas.getWidth() && y <= canvas.getHeight()) {
+      canvas.fill(x - 1, y - 1, color);
+      canvas.printToStdout();
+    }
+    else {
+      System.out.println("Provided x and y are exceeding canvas size.");
+    }
   }
 
   private static void drawRectangle() {
