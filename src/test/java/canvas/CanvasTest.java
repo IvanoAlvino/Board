@@ -42,6 +42,7 @@ public class CanvasTest {
   public void fillIsWorkingProperly() throws IllegalWidthORHeightException {
     Canvas canvas = new Canvas(10, 10);
     canvas.setFullPoint('X');
+    canvas.setEmptyPoint(' ');
 
     // top horizontal line
     canvas.drawPoint(4,3);
@@ -73,5 +74,11 @@ public class CanvasTest {
     // check border of rectangle is not colored
     Assert.assertEquals("4,3 is border, thus not colored", 'X', canvas.getPointAt(4,3));
     Assert.assertEquals("4,7 is border, thus not colored", 'X', canvas.getPointAt(4,7));
+
+    // check outside of rectangle is not colored
+    Assert.assertEquals("2,2 is border, thus not colored", ' ', canvas.getPointAt(2,2));
+    Assert.assertEquals("6,3 is border, thus not colored", ' ', canvas.getPointAt(6,3));
+    Assert.assertEquals("6,8 is border, thus not colored", ' ', canvas.getPointAt(6,8));
+    Assert.assertEquals("2,8 is border, thus not colored", ' ', canvas.getPointAt(2,8));
   }
 }
